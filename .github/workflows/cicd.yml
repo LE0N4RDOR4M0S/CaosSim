@@ -54,7 +54,7 @@ jobs:
         id: docker_meta
         uses: docker/metadata-action@v4
         with:
-          images: ${{ secrets.DOCKERHUB_USERNAME }}/nextjs-app
+          images: ${{ secrets.DOCKERHUB_USERNAME }}/caossim
           tags: |
             type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
 
