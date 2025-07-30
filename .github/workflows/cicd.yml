@@ -79,22 +79,24 @@ jobs:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.SERVER_PORT}}
           script: |
             export PROJECT_DIR="prod"
             export HOST_PORT="3000"
-            export APP_TAG="latest"
+            
+            export IMAGE_NAME="${{ secrets.DOCKERHUB_USERNAME }}/caossim"
+            export IMAGE_TAG="latest"
 
             mkdir -p ~/$PROJECT_DIR
 
             echo '${{ secrets.DOCKER_COMPOSE_CONTENT }}' > ~/$PROJECT_DIR/docker-compose.yml
 
-            sed -i "s/3000:3000/$HOST_PORT:3000/" ~/$PROJECT_DIR/docker-compose.yml
+            echo "DOCKER_IMAGE_NAME=${IMAGE_NAME}" > ~/$PROJECT_DIR/.env
+            echo "IMAGE_TAG=${IMAGE_TAG}" >> ~/$PROJECT_DIR/.env
+            echo "HOST_PORT=${HOST_PORT}" >> ~/$PROJECT_DIR/.env
 
             cd ~/$PROJECT_DIR
 
             echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
-            docker compose pull app
-
-            docker compose -p "nextjs-$PROJECT_DIR" up -d --remove-orphans
+            docker compose pull
+            docker compose up -d --remove-orphans
