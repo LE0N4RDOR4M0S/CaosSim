@@ -38,7 +38,7 @@ O jogo é construído com uma stack moderna e modular, pensada para performance 
 
 ```bash
 # 1. Clone o repositório
-git clone [URL do Repositório]
+git clone https://github.com/LE0N4RDOR4M0S/CaosSim
 
 # 2. Instale as dependências
 npm install
