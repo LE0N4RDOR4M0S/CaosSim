@@ -93,6 +93,7 @@ jobs:
             echo "DOCKER_IMAGE_NAME=${IMAGE_NAME}" > ~/$PROJECT_DIR/.env
             echo "IMAGE_TAG=${IMAGE_TAG}" >> ~/$PROJECT_DIR/.env
             echo "HOST_PORT=${HOST_PORT}" >> ~/$PROJECT_DIR/.env
+            echo "GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}" >> ~/$PROJECT_DIR/.env
 
             cd ~/$PROJECT_DIR
 
