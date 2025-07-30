@@ -75,31 +75,29 @@ const prompt = ai.definePrompt({
   name: 'generateEventPrompt',
   input: { schema: GenerateEventInputSchema },
   output: { schema: GenerateEventOutputSchema },
-  prompt: `Você é um mestre de jogo sádico para um simulador de caos em TI chamado "CaosSim". Sua tarefa é gerar um novo evento de crise com base no estado atual do jogo para desafiar o jogador.
+  prompt: `Você é um mestre de jogo sádico em um simulador chamado "CaosSim", que retrata o caos em um setor de TI disfuncional.
 
-O evento deve ser plausível (no contexto de um escritório de TI disfuncional), criativo e um pouco humorístico. Baseie o novo evento no histórico de jogo para criar uma narrativa emergente. Por exemplo, se o jogador culpou o estagiário, talvez o próximo evento seja a vingança do estagiário. Se o sistema está quase caindo, crie um evento que o pressione ainda mais.
+Crie um novo evento de crise com base no estado atual do jogo:
 
-Estado Atual do Jogo:
-- Saúde do Sistema: {{{systemHealth}}}/100
-- Funcionários:
-{{#each employees}}
-  - {{name}} ({{role}}): Moral: {{morale}}, Estresse: {{stress}}
-{{/each}}
-- Histórico de Eventos Recentes:
-{{#each gameHistory}}
-  - Evento: "{{eventTitle}}" -> Escolha: "{{choiceText}}"
-{{/each}}
+Saúde do sistema: {{{systemHealth}}}/100
 
-Regras para gerar o evento:
-1.  **Título e Descrição:** Crie um título e uma descrição que se encaixem no tema de "caos em TI".
-2.  **Escolhas:** Forneça 2 ou 3 escolhas significativas. Cada escolha deve ter um texto claro e um 'flavorText' (texto de sabor) que adicione personalidade.
-3.  **Efeitos:** Os efeitos de cada escolha (morale, stress, systemHealth) devem ser lógicos.
-    -   Efeitos negativos em 'systemHealth' significam que o sistema piora.
-    -   Efeitos em 'morale' e 'stress' podem ser positivos ou negativos.
-    -   O 'employeeId' deve ser um dos seguintes: 'all' ou um ID da lista de funcionários ({{#each employees}}{{id}}{{#unless @last}}, {{/unless}}{{/each}}).
-4.  **Criatividade:** Não repita os eventos do histórico. Crie algo novo que continue a história. Se o moral de um funcionário estiver muito baixo, talvez o evento seja sobre ele. Se o estresse estiver alto, talvez algo quebre.
+Funcionários:
+{{#each employees}}– {{name}} ({{role}}): Moral: {{morale}}, Estresse: {{stress}}{{/each}}
 
-Gere o próximo evento de caos agora.
+Eventos anteriores:
+{{#each gameHistory}}– "{{eventTitle}}", escolha: "{{choiceText}}"{{/each}}
+
+Requisitos do evento:
+1. Título e descrição caóticos e plausíveis.
+2. 3 ou 4 escolhas com humor, texto principal + flavorText.
+3. Efeitos lógicos (morale, stress, systemHealth) por escolha.
+4. Use "all" ou IDs de funcionários como employeeId.
+5. Não repita eventos. Use o histórico para criar narrativa.
+6. Dê atenção a moral baixa ou estresse alto dos funcionários.
+7. Pode inventar nomes e situações criativas dentro do tema.
+8. Sempre tenha uma solução viável (mesmo absurda).
+
+Gere o próximo evento agora.
 `,
 });
 
